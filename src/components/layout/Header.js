@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import Logo from './partials/Logo';
+import {Modal} from 'antd';
+import Login from './Login'
 
 const propTypes = {
   navPosition: PropTypes.string,
@@ -44,7 +46,7 @@ const Header = ({
       document.removeEventListener('click', clickOutside);
       closeMenu();
     };
-  });  
+  });
 
   const openMenu = () => {
     document.body.classList.add('off-nav-is-active');
@@ -66,13 +68,23 @@ const Header = ({
     if (!nav.current) return
     if (!isActive || nav.current.contains(e.target) || e.target === hamburger.current) return;
     closeMenu();
-  }  
+  }
 
   const classes = classNames(
     'site-header',
     bottomOuterDivider && 'has-bottom-divider',
     className
   );
+  const[isModalOpen,setCloseModal]=useState(false);
+   
+  const handleShow =(e)=> {
+    e.preventDefault();
+    setCloseModal(true);
+  }
+  const handleCancel =(e)=>{
+    e.preventDefault();
+    setCloseModal(false);
+  }
 
   return (
     <header
@@ -85,7 +97,7 @@ const Header = ({
             'site-header-inner',
             bottomDivider && 'has-bottom-divider'
           )}>
-          <Logo /> 
+          <Logo />
           <span className='logo-name'>
             MechService
           </span>
@@ -123,11 +135,18 @@ const Header = ({
                       className="list-reset header-nav-right"
                     >
                       <li>
-                        <Link to="#0" className="button button-primary button-wide-mobile button-sm" onClick={closeMenu}>Sign up</Link>
+                        <button className="button button-primary button-wide-mobile button-sm" onClick={handleShow}>
+                          Login
+                        </button>
+                        {/* <Link to="#0" className="button button-primary button-wide-mobile button-sm" onClick={closeMenu}>Login</Link> */}
                       </li>
+
                     </ul>}
                 </div>
               </nav>
+              <Modal title="Please Login to continue" open={isModalOpen} onCancel={handleCancel}>
+                <Login />
+              </Modal>
             </>}
         </div>
       </div>

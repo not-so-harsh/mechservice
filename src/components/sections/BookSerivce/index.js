@@ -6,11 +6,8 @@ import {
   Button,
   Radio,
   Select,
-  Cascader,
   DatePicker,
-  InputNumber,
   TreeSelect,
-  Switch,
   Upload,
 } from 'antd';
 import './index.scss';
