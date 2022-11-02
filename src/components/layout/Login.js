@@ -23,6 +23,30 @@ const App = () => {
     e.preventDefault();
     setCloseModal(false);
   }
+  async function Login(data) {
+    // onFinish
+    // event.preventDefault();
+    // let item = {email, password}
+    let result = await fetch("https://apimech.herokuapp.com/user/login", {
+      method:'POST',
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",  
+        "Accept":'application/json' 
+      },
+    });
+    result = await result.json();
+    
+    console.log(result)
+
+    if (result.hasOwnProperty('token')){
+      localStorage.setItem("user-info",JSON.stringify(result))
+      
+    }
+    else{
+      alert ( "User not found");
+    }
+  }
 
   return (
     <Form
@@ -30,14 +54,14 @@ const App = () => {
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 16 }}
       initialValues={{ remember: true }}
-      onFinish={onFinish}
+      onFinish={Login}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
       <Form.Item
-        label="Username"
-        name="username"
-        rules={[{ required: true, message: 'Please input your username!' }]}
+        label="email"
+        name="email"
+        rules={[{ required: true, message: 'Please input your email ID!' }]}
       >
         <Input />
       </Form.Item>

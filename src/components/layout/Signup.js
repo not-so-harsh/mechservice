@@ -42,9 +42,9 @@ const App = () => {
     // let item = {  phone, email, password, userType }
     // console.warn(item)
     console.log(data)
-    let result = await fetch("http://localhost:3001/user/signup", {
+    let result = await fetch("https://apimech.herokuapp.com/user/signup", {
       method: 'POST',
-      mode: 'no-cors',
+      mode: 'cors',
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
@@ -58,6 +58,7 @@ const App = () => {
   }
 
   const [inputValues, setInputValue] = useState({
+    name : '',
     phone: '',
     email: '',
     password: '',
@@ -74,9 +75,9 @@ const App = () => {
 
   return (
     <Form {...layout} name="nest-messages" validateMessages={validateMessages} onFinish={signUp}>
-      {/* <Form.Item name={['user', 'name']} label="name" rules={[{ rtype: 'name' }]} value={inputValues.name} onChange={(e) => handleChange(e)}>
+      <Form.Item name={['user', 'name']} label="name" rules={[{ rtype: 'name' }]} >
         <Input />
-      </Form.Item> */}
+      </Form.Item>
       <Form.Item name="email" label="email" rules={[{ type: 'email' }]}>
         <Input />
       </Form.Item>
