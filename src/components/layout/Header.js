@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import Logo from './partials/Logo';
-import {Modal} from 'antd';
+import { Modal } from 'antd';
 import Login from './Login'
 
 const propTypes = {
   navPosition: PropTypes.string,
   hideNav: PropTypes.bool,
-  hideSignin: PropTypes.bool,
   bottomOuterDivider: PropTypes.bool,
   bottomDivider: PropTypes.bool
 }
@@ -17,7 +16,6 @@ const propTypes = {
 const defaultProps = {
   navPosition: '',
   hideNav: false,
-  hideSignin: false,
   bottomOuterDivider: false,
   bottomDivider: false
 }
@@ -26,17 +24,22 @@ const Header = ({
   className,
   navPosition,
   hideNav,
-  hideSignin,
   bottomOuterDivider,
   bottomDivider,
   ...props
 }) => {
 
   const [isActive, setIsactive] = useState(false);
+  const [user, setUser] = useState();
 
   const nav = useRef(null);
   const hamburger = useRef(null);
+  //    console.log("user-info")
 
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("user-info") || '{}')
+    setUser(userInfo)
+  }, [])
   useEffect(() => {
     isActive && openMenu();
     document.addEventListener('keydown', keyPress);
@@ -75,13 +78,13 @@ const Header = ({
     bottomOuterDivider && 'has-bottom-divider',
     className
   );
-  const[isModalOpen,setCloseModal]=useState(false);
-   
-  const handleShow =(e)=> {
+  const [isModalOpen, setCloseModal] = useState(false);
+
+  const handleShow = (e) => {
     e.preventDefault();
     setCloseModal(true);
   }
-  const handleCancel =(e)=>{
+  const handleCancel = (e) => {
     e.preventDefault();
     setCloseModal(false);
   }
@@ -130,14 +133,15 @@ const Header = ({
                       <Link to="#0" onClick={closeMenu}>Register as mechanic</Link>
                     </li>
                   </ul>
-                  {!hideSignin &&
+                  {
                     <ul
                       className="list-reset header-nav-right"
                     >
                       <li>
-                        <button className="button button-primary button-wide-mobile button-sm" onClick={handleShow}>
-                          Login
-                        </button>
+                        {!(user && user?.email) ?
+                          <button className="button button-primary button-wide-mobile button-sm" onClick={handleShow}> login</button>
+                          : user.name}
+
                         {/* <Link to="#0" className="button button-primary button-wide-mobile button-sm" onClick={closeMenu}>Login</Link> */}
                       </li>
 
@@ -145,7 +149,8 @@ const Header = ({
                 </div>
               </nav>
               <Modal title="Please Login to continue" open={isModalOpen} onCancel={handleCancel}>
-                <Login />
+                <Login onCancel={() =>
+                  setCloseModal(false)} />
               </Modal>
             </>}
         </div>

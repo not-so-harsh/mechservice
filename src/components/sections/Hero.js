@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { SectionProps } from '../../utils/SectionProps';
 import Button from '../elements/Button';
 import Image from '../elements/Image';
-import {Modal} from 'antd';
+import { Modal } from 'antd';
 import BookService from './BookSerivce/index';
 
 const propTypes = {
@@ -25,13 +25,15 @@ const Hero = ({
   ...props
 }) => {
 
-  const[isModalOpen,setCloseModal]=useState(false);
-   
-  const handleShow =(e)=> {
+  const [isModalOpen, setCloseModal] = useState(false);
+  const [redirect, setRedirect] = useState(false)
+
+
+  const handleShow = (e) => {
     e.preventDefault();
     setCloseModal(true);
   }
-  const handleCancel =(e)=>{
+  const handleCancel = (e) => {
     e.preventDefault();
     setCloseModal(false);
   }
@@ -51,6 +53,7 @@ const Hero = ({
     topDivider && 'has-top-divider',
     bottomDivider && 'has-bottom-divider'
   );
+  
 
   return (
     <section
@@ -90,10 +93,10 @@ const Hero = ({
           </div>
         </div>
         <Modal title="Book a Service" open={isModalOpen} onCancel={handleCancel}>
-        <BookService />
+          <BookService />
         </Modal>
-          
-        
+
+
       </div>
     </section>
   );

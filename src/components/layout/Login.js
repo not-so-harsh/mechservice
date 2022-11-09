@@ -1,51 +1,55 @@
 import { Button, Checkbox, Form, Input } from 'antd';
 import React, { useState } from 'react';
 import Signup from './Signup';
-import {Modal} from 'antd';
+import { Modal } from 'antd';
+import {  Redirect } from 'react-router-dom'
 
 
+const Login = ({onCancel}) => {
 
-const App = () => {
-  const onFinish = () => {
-    console.log('Succes');
-  };
+  const [loading, setLoading] = useState(false);
+  const [isModalOpen, setCloseModal] = useState(false);
+  const [redirect, setRedirect] = useState(false)
 
   const onFinishFailed = () => {
-    console.log('Failed:' );
+    console.log('Failed:');
   };
-  const[isModalOpen,setCloseModal]=useState(false);
-   
-  const handleShow =(e)=> {
+
+  const handleShow = (e) => {
     e.preventDefault();
     setCloseModal(true);
   }
-  const handleCancel =(e)=>{
+
+  const handleCancel = (e) => {
     e.preventDefault();
     setCloseModal(false);
   }
-  async function Login(data) {
-    // onFinish
-    // event.preventDefault();
-    // let item = {email, password}
+
+  async function login(data) {
     let result = await fetch("https://apimech.herokuapp.com/user/login", {
-      method:'POST',
+      method: 'POST',
       body: JSON.stringify(data),
       headers: {
-        "Content-Type": "application/json",  
-        "Accept":'application/json' 
+        "Content-Type": "application/json",
+        "Accept": 'application/json'
       },
     });
     result = await result.json();
     
     console.log(result)
 
-    if (result.hasOwnProperty('token')){
-      localStorage.setItem("user-info",JSON.stringify(result))
-      
+    if (result.hasOwnProperty('token')) {
+      localStorage.setItem("user-info", JSON.stringify(result))
+      setRedirect(true);
+      alert("log in successfully");
+      onCancel()
     }
-    else{
-      alert ( "User not found");
+    else {
+      alert("User not found");
     }
+  }
+  if (redirect) {
+    return <Redirect to="/"></Redirect>
   }
 
   return (
@@ -54,10 +58,10 @@ const App = () => {
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 16 }}
       initialValues={{ remember: true }}
-      onFinish={Login}
+      onFinish={login}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
-    >
+    > 
       <Form.Item
         label="email"
         name="email"
@@ -79,18 +83,23 @@ const App = () => {
       </Form.Item>
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" >
           Submit
         </Button>
         <Button htmlType="submit" onClick={handleShow}>
           Signup
         </Button>
       </Form.Item>
-      <Modal title="Please Register" open={isModalOpen} onCancel={handleCancel}>
-        <Signup/>
-        </Modal>
+      <Modal title="Please Register" open={isModalOpen} onCancel={handleCancel}
+        footer={[
+          <Button key="back" onClick={handleCancel}>
+            Return
+          </Button>,
+        ]}>
+        <Signup />
+      </Modal>
     </Form>
   );
 };
 
-export default App;
+export default Login;

@@ -1,23 +1,12 @@
 import { Button, Form, Input, Select, } from 'antd';
 import React, { useState } from 'react';
 
-
-
-
-
-
 //handle submit updates
-
-
-
 const { Option } = Select;
 const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },
 };
-
-
-
 /* eslint-disable no-template-curly-in-string */
 const validateMessages = {
   required: '${label} is required!',
@@ -29,15 +18,8 @@ const validateMessages = {
     range: '${label} must be between ${min} and ${max}',
   },
 };
-
-
-
 /* eslint-enable no-template-curly-in-string */
-
 const App = () => {
-
-
-
   async function signUp(data) {
     // let item = {  phone, email, password, userType }
     // console.warn(item)
@@ -52,8 +34,9 @@ const App = () => {
 
       }
     })
-    // result = await result.json()
+    result = await result.json();
     localStorage.setItem("user-info", JSON.stringify(result))
+    
 
   }
 
@@ -75,7 +58,7 @@ const App = () => {
 
   return (
     <Form {...layout} name="nest-messages" validateMessages={validateMessages} onFinish={signUp}>
-      <Form.Item name={['user', 'name']} label="name" rules={[{ rtype: 'name' }]} >
+      <Form.Item name='name' label="name" rules={[{ rtype: 'name' }]} >
         <Input />
       </Form.Item>
       <Form.Item name="email" label="email" rules={[{ type: 'email' }]}>
@@ -118,7 +101,7 @@ const App = () => {
         <Input.Password />
       </Form.Item>
       <Form.Item
-        name="User-Type"
+        name="userType"
         label="User-Type"
         hasFeedback
         rules={[
@@ -129,8 +112,8 @@ const App = () => {
         ]}
       >
         <Select placeholder="Please select User-Type">
-          <Option value="china">User</Option>
-          <Option value="usa">Mechanic</Option>
+          <Option value="user">User</Option>
+          <Option value="mechanic">Mechanic</Option>
         </Select>
       </Form.Item>
 
