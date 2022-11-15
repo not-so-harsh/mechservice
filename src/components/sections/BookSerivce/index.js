@@ -11,15 +11,17 @@ import {
   Upload,
 } from 'antd';
 import './index.scss';
+import useGeoLocation from './useGeoLocation ';
 
 const BookServiceForm = () => {
   const { RangePicker } = DatePicker;
   const { TextArea } = Input;
+  const location = useGeoLocation();
 
   return (
     <div className='main'>
       <Form
-      name="hgjgj"
+        name="hgjgj"
         labelCol={{
           span: 4,
         }}
@@ -28,29 +30,29 @@ const BookServiceForm = () => {
         }}
         layout="horizontal"
       >
-   
-        <Form.Item label="Name" name="Name" rules={[{ required: true, message: 'Please fill your name'}]}>
-          <Input  prefix={<SmileOutlined />}  />
+
+        <Form.Item label="Name" name="Name" rules={[{ required: true, message: 'Please fill your name' }]}>
+          <Input prefix={<SmileOutlined />} />
         </Form.Item>
-        <Form.Item label="Phone" name="phone" rules={[{ required: true, message: 'Please fill your phone number'}]}>
+        <Form.Item label="Phone" name="phone" rules={[{ required: true, message: 'Please fill your phone number' }]}>
           <Input />
         </Form.Item>
-        <Form.Item label="Pincode" name="pin" rules={[{ required: true, message: 'Please fill your pin code '}]}>
-         <Input/>
+        <Form.Item label="Pincode" name="pin" rules={[{ required: true, message: 'Please fill your pin code ' }]}>
+          <Input />
         </Form.Item>
-        <Form.Item label="Address" name="add" rules={[{ required: true, message: 'Please fill your address'}]}>
+        <Form.Item label="Address" name="add" rules={[{ required: true, message: 'Please fill your address' }]}>
           <TextArea rows={4} />
         </Form.Item>
 
         <Form.Item label="Vehical Type" name="vehical"
-        rules={[{ required: true, message: 'Please select your vehical type'}]}>
+          rules={[{ required: true, message: 'Please select your vehical type' }]}>
           <Radio.Group>
             <Radio value="apple"> 4 wheeler</Radio>
             <Radio value="pear"> 2 wheeler </Radio>
           </Radio.Group>
         </Form.Item>
-        
-        <Form.Item label="Brand" name="brand" rules={[{ required: true, message: 'Please select your brand'}]} >
+
+        <Form.Item label="Brand" name="brand" rules={[{ required: true, message: 'Please select your brand' }]} >
           <Select>
             <Select.Option value="demo">Maruti Suzuki</Select.Option>
             <Select.Option value="hyundai">Hyundai</Select.Option>
@@ -62,7 +64,7 @@ const BookServiceForm = () => {
             <Select.Option value="honda">Honda</Select.Option>
           </Select>
         </Form.Item>
-        <Form.Item label="Model" name="select" rules={[{ required: true, message: 'Please select your car model!'}]}>
+        <Form.Item label="Model" name="select" rules={[{ required: true, message: 'Please select your car model!' }]}>
           <TreeSelect
             treeData={[
               {
@@ -78,31 +80,18 @@ const BookServiceForm = () => {
             ]}
           />
         </Form.Item>
-        <Form.Item label="Fuel type" name="fuel" rules={[{ required: true, message: 'Please select fuel type'}]}>
+        <Form.Item label="Fuel type" name="fuel" rules={[{ required: true, message: 'Please select fuel type' }]}>
           <Select>
-          <Select.Option value="petrol">Petrol</Select.Option>
+            <Select.Option value="petrol">Petrol</Select.Option>
             <Select.Option value="diesel">Diesel</Select.Option>
             <Select.Option value="cng">CNG</Select.Option>
             <Select.Option value="ev">EV</Select.Option>
           </Select>
-          {/* <Cascader
-            options={[
-              {
-                value: 'zh',
-                label: 'Petrol',
-              }, {
-                value: 'diesel',
-                label: 'Diesel',
-              },{
-                value: 'CNG',
-                label: 'CNG',
-              }
-            ]}
-          /> */}
+          
         </Form.Item>
-        <Form.Item label="Service Type" name="service" rules={[{ required: true, message: 'Please select service!'}]}>
-        <Select>
-          <Select.Option value="petrol">Periodic Services </Select.Option>
+        <Form.Item label="Service Type" name="service" rules={[{ required: true, message: 'Please select service!' }]}>
+          <Select>
+            <Select.Option value="petrol">Periodic Services </Select.Option>
             <Select.Option value="diesel">AC service and repair</Select.Option>
             <Select.Option value="cng">Batteries</Select.Option>
             <Select.Option value="ev">Tyre & wheel care </Select.Option>
@@ -114,16 +103,12 @@ const BookServiceForm = () => {
             <Select.Option value="ev">Insurance clame</Select.Option>
           </Select>
         </Form.Item>
-        {/* <Form.Item  label="Select Date" name="select date">
-          <DatePicker />
-        </Form.Item> */}
-        <Form.Item label="Duration" name="dur">
-          <RangePicker />
+        <Form.Item label="location" name="dur">
+          {
+            location.loaded ? JSON.stringify(location) 
+            : "Location data not available yet"
+          }
         </Form.Item>
-       
-        {/* <Form.Item label="Switch" valuePropName="checked">
-          <Switch />
-        </Form.Item> */}
         <Form.Item label="Upload RC" name="rc" valuePropName="fileList">
           <Upload action="/upload.do" listType="picture-card">
             <div>
@@ -141,11 +126,11 @@ const BookServiceForm = () => {
         {/* <Form.Item label="Button">
           <Button type="primary" htmlType="submit">Button</Button>
         </Form.Item> */}
-      
+
         <Button type="primary" htmlType="submit">
           Submit
         </Button>
-    
+
       </Form>
     </div>
   );

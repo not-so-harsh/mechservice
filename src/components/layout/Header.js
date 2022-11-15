@@ -31,7 +31,7 @@ const Header = ({
 
   const [isActive, setIsactive] = useState(false);
   const [user, setUser] = useState();
-
+  const [isModalOpen, setCloseModal] = useState(false);
   const nav = useRef(null);
   const hamburger = useRef(null);
   //    console.log("user-info")
@@ -78,8 +78,6 @@ const Header = ({
     bottomOuterDivider && 'has-bottom-divider',
     className
   );
-  const [isModalOpen, setCloseModal] = useState(false);
-
   const handleShow = (e) => {
     e.preventDefault();
     setCloseModal(true);
@@ -124,7 +122,7 @@ const Header = ({
                     isActive && 'is-active'
                   )}>
                 <div className="header-nav-inner">
-                  <ul className={
+                  {/* <ul className={
                     classNames(
                       'list-reset text-xs',
                       navPosition && `header-nav-${navPosition}`
@@ -132,7 +130,7 @@ const Header = ({
                     <li>
                       <Link to="#0" onClick={closeMenu}>Register as mechanic</Link>
                     </li>
-                  </ul>
+                  </ul> */}
                   {
                     <ul
                       className="list-reset header-nav-right"

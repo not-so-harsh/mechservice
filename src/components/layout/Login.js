@@ -96,7 +96,8 @@ const Login = ({onCancel}) => {
             Return
           </Button>,
         ]}>
-        <Signup />
+        <Signup  onCancel={() =>
+                  setCloseModal(false)}/>
       </Modal>
     </Form>
   );

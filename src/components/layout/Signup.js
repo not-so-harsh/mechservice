@@ -19,7 +19,7 @@ const validateMessages = {
   },
 };
 /* eslint-enable no-template-curly-in-string */
-const App = () => {
+const App = ({onCancel}) => {
   async function signUp(data) {
     // let item = {  phone, email, password, userType }
     // console.warn(item)
@@ -36,8 +36,11 @@ const App = () => {
     })
     result = await result.json();
     localStorage.setItem("user-info", JSON.stringify(result))
-    
 
+    if(localStorage.setItem){
+      alert('Successfully registerd')
+      onCancel()
+    }
   }
 
   const [inputValues, setInputValue] = useState({
@@ -134,10 +137,8 @@ const App = () => {
           }}
         />
       </Form.Item>
-
-
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" >
           Submit
         </Button>
       </Form.Item>

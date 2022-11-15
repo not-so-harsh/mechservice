@@ -26,7 +26,6 @@ const Hero = ({
 }) => {
 
   const [isModalOpen, setCloseModal] = useState(false);
-  const [redirect, setRedirect] = useState(false)
 
 
   const handleShow = (e) => {
@@ -95,8 +94,6 @@ const Hero = ({
         <Modal title="Book a Service" open={isModalOpen} onCancel={handleCancel}>
           <BookService />
         </Modal>
-
-
       </div>
     </section>
   );
