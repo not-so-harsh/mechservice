@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import Logo from './partials/Logo';
 import { Modal } from 'antd';
 import Login from './Login'
+import { DownOutlined, SmileOutlined } from '@ant-design/icons';
+import { Dropdown, Menu, Space } from 'antd';
 
 const propTypes = {
   navPosition: PropTypes.string,
@@ -32,6 +34,8 @@ const Header = ({
   const [isActive, setIsactive] = useState(false);
   const [user, setUser] = useState();
   const [isModalOpen, setCloseModal] = useState(false);
+  const [isLoggedin, setIsLoggedin] = useState(false);
+
   const nav = useRef(null);
   const hamburger = useRef(null);
   //    console.log("user-info")
@@ -63,6 +67,11 @@ const Header = ({
     setIsactive(false);
   }
 
+  const signOut = () => {
+    (localStorage.removeItem("user-info"))
+    setIsLoggedin(false);
+  }
+
   const keyPress = (e) => {
     isActive && e.keyCode === 27 && closeMenu();
   }
@@ -81,11 +90,51 @@ const Header = ({
   const handleShow = (e) => {
     e.preventDefault();
     setCloseModal(true);
+    setIsLoggedin(true);
+
   }
   const handleCancel = (e) => {
     e.preventDefault();
     setCloseModal(false);
   }
+  const menu = (
+    <Menu
+      items={[
+        {
+          key: '1',
+          label: (
+            <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
+              1st menu item
+            </a>
+          ),
+        },
+        {
+          key: '2',
+          label: (
+            <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
+              2nd menu item
+            </a>
+          ),
+          icon: <SmileOutlined />,
+          disabled: true,
+        },
+        {
+          key: '3',
+          label: (
+            <a target="_blank" rel="noopener noreferrer" onClickCapture={signOut} href="https://www.luohanacademy.com">
+              3rd menu item 
+            </a>
+          ),
+          disabled: true,
+        },
+        {
+          key: '4',
+          danger: true,
+          label: 'a danger item',
+        },
+      ]}
+    />
+  );
 
   return (
     <header
@@ -135,15 +184,26 @@ const Header = ({
                     <ul
                       className="list-reset header-nav-right"
                     >
-                      <li>
-                        {!(user && user?.email) ?
-                          <button className="button button-primary button-wide-mobile button-sm" onClick={handleShow}> login</button>
-                          : user.name}
 
-                        {/* <Link to="#0" className="button button-primary button-wide-mobile button-sm" onClick={closeMenu}>Login</Link> */}
-                      </li>
+                      {!isLoggedin ? (<li>
+                        <button className="button button-primary button-wide-mobile button-sm" onClick={handleShow}>Login</button>
 
+                      </li>) : (<li>
+                        <button className="button button-primary button-wide-mobile button-sm" onClickCapture={signOut}>Logout</button>
+                      </li>)}
                     </ul>}
+                  <Dropdown overlay={menu}>
+                    <a onClick={(e) => e.preventDefault()}>
+                      {!(user && user?.email) ?
+                        <Space>
+                          Hover me
+                          <DownOutlined />
+                        </Space>
+                        : user.name}
+                    </a>
+                  </Dropdown>
+
+
                 </div>
               </nav>
               <Modal title="Please Login to continue" open={isModalOpen} onCancel={handleCancel}>
