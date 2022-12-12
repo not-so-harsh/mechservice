@@ -91,7 +91,8 @@ const Hero = ({
             </a>
           </div>
         </div>
-        <Modal title="Book a Service" open={isModalOpen} onCancel={handleCancel}>
+        <Modal title="Book a Service" open={isModalOpen} onCancel={handleCancel}
+        footer={[]}>
           <BookService />
         </Modal>
       </div>

@@ -24,7 +24,7 @@ const App = ({onCancel}) => {
     // let item = {  phone, email, password, userType }
     // console.warn(item)
     console.log(data)
-    let result = await fetch("https://apimech.herokuapp.com/user/signup", {
+    let result = await fetch("http://localhost:3001/user/signup", {
       method: 'POST',
       mode: 'cors',
       body: JSON.stringify(data),

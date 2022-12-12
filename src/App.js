@@ -11,8 +11,10 @@ import LayoutDefault from './layouts/LayoutDefault';
 // Views 
 import Home from './views/Home';
 
-//login
-import Login from './components/layout/Login'
+// mechanic form
+import Mechanic from './components/sections/BookSerivce/Mechanic'
+
+
 
 // Initialize Google Analytics
 ReactGA.initialize(process.env.REACT_APP_GA_CODE);
@@ -40,6 +42,8 @@ const App = () => {
       ref={childRef}
       children={() => (
         <Switch>
+          <AppRoute exact path="/Mechanic" component={Mechanic} layout={LayoutDefault} />
+
           <AppRoute exact path="/" component={Home} layout={LayoutDefault} />
         </Switch>
       )} />
