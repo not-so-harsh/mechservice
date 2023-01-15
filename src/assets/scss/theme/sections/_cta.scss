@@ -15,6 +15,11 @@
     background-size: cover;
     background-position: right bottom;    
 }
+.mechdata{
+  padding-top: 70px;
+  border: 100;
+  
+}
 
 @include media( '>medium' ) {
 
@@ -29,4 +34,5 @@
 		padding-left: 48px;
 		padding-right: 48px;
 	}
+
 }

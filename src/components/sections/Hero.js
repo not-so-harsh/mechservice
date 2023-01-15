@@ -71,7 +71,7 @@ const Hero = ({
               </p>
               <div className="reveal-from-bottom" data-reveal-delay="600">
                 <Button onClick={handleShow} tag="a" className="rounded-full" color="primary" wideMobile href="">
-                  Contact Us
+                  Book Serivce
                 </Button>
               </div>
             </div>
@@ -91,7 +91,8 @@ const Hero = ({
             </a>
           </div>
         </div>
-        <Modal title="Book a Service" open={isModalOpen} onCancel={handleCancel}>
+        <Modal title="Book a Service" open={isModalOpen} onCancel={handleCancel}
+        footer={[]}>
           <BookService />
         </Modal>
       </div>
