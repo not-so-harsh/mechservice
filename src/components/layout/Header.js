@@ -104,14 +104,15 @@ const Header = ({
         </a>
       ),
     },
-  ] : [{
-    key: "1",
-    label: (
-      <a target="_blank" rel="noopener noreferrer" href="">
-        Place Order
-      </a>
-    ),
-  },];
+  ] : [];
+  // {
+  //   key: "1",
+  //   label: (
+  //     <a target="_blank" rel="noopener noreferrer" href="">
+  //       Place Order
+  //     </a>
+  //   ),
+  // },
   const menu = (
     <Menu
       items={items}
