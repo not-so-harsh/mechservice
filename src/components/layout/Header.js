@@ -1,11 +1,10 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import { Link } from "react-router-dom";
 import Logo from "./partials/Logo";
 import { Modal } from "antd";
 import Login from "./Login";
-import { DownOutlined, SmileOutlined } from "@ant-design/icons";
+import { DownOutlined } from "@ant-design/icons";
 import { Dropdown, Menu, Space } from "antd";
 import { userContext } from "../../context/userProvider";
 
@@ -37,11 +36,13 @@ const Header = ({
 
   const nav = useRef(null);
   const hamburger = useRef(null);
+  console.log(userInfo)
 
   useEffect(() => {
     isActive && openMenu();
     document.addEventListener("keydown", keyPress);
     document.addEventListener("click", clickOutside);
+
     return () => {
       document.removeEventListener("keydown", keyPress);
       document.removeEventListener("click", clickOutside);
@@ -94,56 +95,30 @@ const Header = ({
     e.preventDefault();
     setCloseModal(false);
   };
+  const items = userInfo.userType === 'mechanic' ? [
+    {
+      key: "1",
+      label: (
+        <a target="_blank" rel="noopener noreferrer" href="/Mechanic">
+          Orders
+        </a>
+      ),
+    },
+  ] : [{
+    key: "1",
+    label: (
+      <a target="_blank" rel="noopener noreferrer" href="">
+        Place Order
+      </a>
+    ),
+  },];
   const menu = (
     <Menu
-      items={[
-        {
-          key: "1",
-          label: (
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="/Mechanic"
-            >
-              Orders
-            </a>
-          ),
-        },
-        {
-          key: "2",
-          label: (
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://www.aliyun.com"
-            >
-              2nd menu item
-            </a>
-          ),
-          icon: <SmileOutlined />,
-        },
-        {
-          key: "3",
-          label: (
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://www.luohanacademy.com"
-            >
-              3rd menu item
-            </a>
-          ),
-          disabled: true,
-        },
-        {
-          key: "4",
-          danger: true,
-          label: "a danger item",
-        },
-      ]}
+      items={items}
     />
   );
-
+  
+  const DropdownOption =userInfo.userType =="mechanic"?menu:[] 
   return (
     <header {...props} className={classes}>
       <div className="container">
@@ -172,15 +147,6 @@ const Header = ({
                 className={classNames("header-nav", isActive && "is-active")}
               >
                 <div className="header-nav-inner">
-                  {/* <ul className={
-                    classNames(
-                      'list-reset text-xs',
-                      navPosition && `header-nav-${navPosition}`
-                    )}>
-                    <li>
-                      <Link to="#0" onClick={closeMenu}>Register as mechanic</Link>
-                    </li>
-                  </ul> */}
                   {
                     <ul className="list-reset header-nav-right">
                       {!Object.keys(userInfo).length ? (
@@ -208,7 +174,7 @@ const Header = ({
                     <Dropdown overlay={menu}>
                       <a onClick={(e) => e.preventDefault()}>
                         <Space>
-                          Welcome {userInfo.name}
+                          Welcome {userInfo.name}{userInfo.userType}
                           <DownOutlined />
                         </Space>
                       </a>
@@ -220,6 +186,7 @@ const Header = ({
                 title="Please Login to continue"
                 open={isModalOpen}
                 onCancel={handleCancel}
+                footer={null}
               >
                 <Login onCancel={() => setCloseModal(false)} />
               </Modal>

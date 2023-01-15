@@ -98,11 +98,12 @@ const Login = ({ onCancel }) => {
         title="Please Register"
         open={isModalOpen}
         onCancel={handleCancel}
-        footer={[
-          <Button key="back" onClick={handleCancel}>
-            Return
-          </Button>,
-        ]}
+        footer={null}
+        // [
+        //   <Button key="back" onClick={handleCancel}>
+        //     Return
+        //   </Button>,
+        // ]
       >
         <Signup onCancel={() => setCloseModal(false)} />
       </Modal>

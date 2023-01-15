@@ -87,7 +87,7 @@ const BookServiceForm = () => {
             ]}
           /> */}
         </Form.Item>
-        <Form.Item label="Fuel type" name="Fuel" rules={[{ required: true, message: 'Please select fuel type' }]}>
+        <Form.Item label="Fuel" name="Fuel" rules={[{ required: true, message: 'Please select fuel type' }]}>
           <Select>
             <Select.Option value="petrol">Petrol</Select.Option>
             <Select.Option value="diesel">Diesel</Select.Option>
@@ -96,21 +96,21 @@ const BookServiceForm = () => {
           </Select>
 
         </Form.Item>
-        <Form.Item label="Service Type" name="Service" rules={[{ required: true, message: 'Please select service!' }]}>
+        <Form.Item label="Service" name="Service" rules={[{ required: true, message: 'Please select service!' }]}>
           <Select>
-            <Select.Option value="petrol">Periodic Services </Select.Option>
-            <Select.Option value="diesel">AC service and repair</Select.Option>
-            <Select.Option value="cng">Batteries</Select.Option>
-            <Select.Option value="ev">Tyre & wheel care </Select.Option>
-            <Select.Option value="ev">Detailing service </Select.Option>
-            <Select.Option value="ev">Car spa </Select.Option>
-            <Select.Option value="ev">Car inspections </Select.Option>
-            <Select.Option value="ev">Windshield & light</Select.Option>
-            <Select.Option value="ev">Clutch & body parts</Select.Option>
-            <Select.Option value="ev">Insurance clame</Select.Option>
+            <Select.Option value="Periodic Services">Periodic Services </Select.Option>
+            <Select.Option value="AC service and repair">AC service and repair</Select.Option>
+            <Select.Option value="Batteries">Batteries</Select.Option>
+            <Select.Option value="Tyre & wheel care">Tyre & wheel care </Select.Option>
+            <Select.Option value="Detailing service">Detailing service </Select.Option>
+            <Select.Option value="Car spa ">Car spa </Select.Option>
+            <Select.Option value="Car inspections">Car inspections </Select.Option>
+            <Select.Option value="Windshield & light">Windshield & light</Select.Option>
+            <Select.Option value="Clutch & body parts">Clutch & body parts</Select.Option>
+            <Select.Option value="Insurance clame">Insurance clame</Select.Option>
           </Select>
         </Form.Item>
-        <Form.Item label="location" name="Location">
+        <Form.Item label="Location" name="Location">
           {
             location.loaded ? JSON.stringify(location)
               : "Location data not available yet"
